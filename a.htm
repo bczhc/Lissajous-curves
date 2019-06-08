@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<canvas id="cvs" style="border: solid #000000 1px"></canvas>
+<div id="o"></div>
+<label for="rg"></label><input type="range" name="" id="rg" min="-100" max="100" style="width: 100%;">
+<label for="rg2"></label><input type="range" name="" id="rg2" min="-100" max="100" style="width: 100%;">
+<div id="rgO"></div>
+<div id="rgO2"></div>
+i: <label for="iI"></label><input type="text" name="" id="iI" value=".01">
+<br/>
+j: <label for="jI"></label><input type="text" name="" id="jI" value=".01">
+<script>
+    function clearCvs(cvs) {
+        // noinspection SillyAssignmentJS
+        cvs.width = cvs.width;
+        // noinspection SillyAssignmentJS
+        cvs.width = cvs.width;
+    }
+
+    let cvs = document.getElementById("cvs");
+    let ctx = cvs.getContext("2d");
+    let rgO = document.getElementById("rgO");
+    let rgO2 = document.getElementById("rgO2");
+    let rg = document.getElementById("rg");
+    let rg2 = document.getElementById("rg2");
+    let iI = document.getElementById("iI");
+    let jI = document.getElementById("jI");
+    cvs.width = 500;
+    cvs.height = 500;
+    let i = 0, j = 0;
+    let i_ic = Number(iI.value), j_ic = Number(jI.value);
+    iI.onkeyup = () => {
+        i_ic = Number(iI.value === "" ? "0" : iI.value);
+        clearCvs(cvs);
+    };
+    jI.onkeyup = () => {
+        j_ic = Number(jI.value === "" ? "0" : jI.value);
+        clearCvs(cvs);
+    };
+    let o = document.getElementById("o");
+    rg.onmouseup = () => {
+        clearCvs(cvs);
+    };
+    rg2.onmouseup = () => {
+        clearCvs(cvs);
+    };
+    cvs.onclick = () => {
+        clearCvs(cvs);
+    };
+    setInterval(() => {
+        rgO.innerHTML = rg.value;
+        rgO2.innerHTML = rg2.value;
+        // clearCvs(cvs);
+        let x = (Math.sin(i - Number(rg.value)) + 1) * 250;
+        let y = (Math.sin(j + Number(rg2.value)) + 1) * 250;
+        ctx.arc(x, y, .1, 0, Math.PI * 180);
+        ctx.stroke();
+        i += (isNaN(i_ic) ? 0 : i_ic);
+        j += isNaN(j_ic) ? 0 : j_ic;
+    }, 1)
+</script>
+</body>
+</html>
